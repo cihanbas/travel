@@ -11,7 +11,7 @@ const CameraScreen = () => {
   }
   return (
     <View>
-      <Text>CameraScreen</Text>
+      <Text>CameraScreen 2</Text>
     </View>
   );
 };

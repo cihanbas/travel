@@ -21,7 +21,7 @@ const MapScreen = () => {
     longitude: 32.791097,
   });
   useEffect(() => {
-    getCurrentLocation();
+    // getCurrentLocation();
   }, []);
 
   const getCurrentLocation = async () => {
@@ -42,7 +42,9 @@ const MapScreen = () => {
         return;
       }
       const coordinate = await Location.getCurrentPositionAsync();
-    } catch (error) {}
+    } catch (error) {
+      console.log("error", error);
+    }
   };
   const goBack = () => {
     // navigation.navigate("Comment");
@@ -57,35 +59,31 @@ const MapScreen = () => {
     navigation.navigate("Comment", { coordinate });
   };
   return (
-    <MapView
-      style={styles.map}
-      initialRegion={{
-        latitude: location.latitude,
-        longitude: location.longitude,
-        latitudeDelta: 0.001,
-        longitudeDelta: 0.001,
-      }}
-      region={{
-        latitude: location.latitude,
-        longitude: location.longitude,
-        latitudeDelta: 0.001,
-        longitudeDelta: 0.001,
-      }}
-      onLongPress={(e) => updateLocation(e)}
-    >
-      <View style={[{ paddingTop: insets.top + 15 }]}>
-        <Pressable onPress={goBack}>
-          <Text>Go Back</Text>
-        </Pressable>
-      </View>
-
-      <Marker
-        coordinate={location}
-        pinColor="green"
-        title="Ankara"
-        description=""
-      />
-    </MapView>
+    <View style={{ flex: 1 }}>
+      <MapView
+        style={styles.map}
+        initialRegion={{
+          latitude: location.latitude,
+          longitude: location.longitude,
+          latitudeDelta: 0.001,
+          longitudeDelta: 0.001,
+        }}
+        region={{
+          latitude: location.latitude,
+          longitude: location.longitude,
+          latitudeDelta: 0.001,
+          longitudeDelta: 0.001,
+        }}
+        onLongPress={(e) => updateLocation(e)}
+      >
+        <Marker
+          coordinate={location}
+          pinColor="green"
+          title="Ankara"
+          description=""
+        />
+      </MapView>
+    </View>
   );
 };
 
