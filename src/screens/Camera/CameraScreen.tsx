@@ -4,6 +4,11 @@ import { useCameraPermissions } from "expo-camera";
 
 const CameraScreen = () => {
   const [permission, requestPermission] = useCameraPermissions();
+
+  console.log("permission", permission);
+  if (permission?.status !== "granted") {
+    requestPermission();
+  }
   return (
     <View>
       <Text>CameraScreen</Text>
