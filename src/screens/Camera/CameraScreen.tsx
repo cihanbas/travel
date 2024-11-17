@@ -1,7 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { useCameraPermissions } from "expo-camera";
 
 const CameraScreen = () => {
+  const [permission, requestPermission] = useCameraPermissions();
   return (
     <View>
       <Text>CameraScreen</Text>
