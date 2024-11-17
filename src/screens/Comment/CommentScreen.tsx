@@ -1,14 +1,22 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
 import React from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import { Rating } from "react-native-ratings";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "../../utils/constants";
 import { useNavigation } from "@react-navigation/native";
-const inputValues = {
+export const inputValues = {
   title: "",
   description: "",
   rating: 5,
+  imageUrl: "",
 };
 const CommentScreen = () => {
   const insets = useSafeAreaInsets();
@@ -56,6 +64,12 @@ const CommentScreen = () => {
             inputValues.rating = rating;
           }}
         />
+        {inputValues.imageUrl && (
+          <Image
+            source={{ uri: inputValues.imageUrl }}
+            style={{ height: 160, width: 90 }}
+          ></Image>
+        )}
 
         <Pressable style={styles.picture_icon} onPress={navigateToCamera}>
           <AntDesign name="picture" size={24} color="white" />
