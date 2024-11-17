@@ -10,9 +10,10 @@ import {
 } from "react-native";
 import { Rating } from "react-native-ratings";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { colors } from "../../utils/constants";
+import { colors, coordinates } from "../../utils/constants";
 import { useNavigation } from "@react-navigation/native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addComment } from "../../store/appSlice";
 export const inputValues = {
   title: "",
   description: "",
@@ -22,11 +23,27 @@ export const inputValues = {
 const CommentScreen = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
   const { image } = useSelector((state) => state.app);
   const navigateToCamera = () => {
     //
     navigation.navigate("Camera");
   };
+
+  const onSave = () => {
+    const body = {
+      coordinate: { ...coordinates },
+      image: image,
+      rating: inputValues.rating,
+      title: inputValues.title,
+      description: inputValues.description,
+    };
+
+    dispatch(addComment(body));
+    navigation.navigate("Home");
+  };
+
   return (
     <View style={[styles.container, { paddingBottom: insets.bottom + 10 }]}>
       <View style={{ flex: 1 }}>
@@ -78,7 +95,7 @@ const CommentScreen = () => {
         </Pressable>
       </View>
 
-      <Pressable style={styles.save_btn}>
+      <Pressable style={styles.save_btn} onPress={onSave}>
         <Text style={styles.save_btn_text}>Kaydet</Text>
       </Pressable>
     </View>

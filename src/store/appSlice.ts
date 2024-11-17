@@ -1,14 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
+interface Item {
   coordinate: {
-    latitude: 0,
-    longtitude: 0,
-  },
+    latitude: number;
+    longitude: number;
+  };
+  image: null | string;
+  rating: number;
+  title: string;
+  description: string;
+  createdAt?: Date;
+}
+interface State {
+  list: Item[];
+  image: null | string;
+}
+const initialState: State = {
   image: null,
-  rating: 0,
-  title: "",
-  description: "",
   list: [],
 };
 
@@ -19,7 +27,11 @@ const appSlice = createSlice({
     setImageUrl: (state, action) => {
       state.image = action.payload;
     },
+    addComment: (state, action: PayloadAction<Item>) => {
+      state.list.push({ ...action.payload, createdAt: new Date() });
+      state.image = null;
+    },
   },
 });
-export const { setImageUrl } = appSlice.actions;
+export const { setImageUrl, addComment } = appSlice.actions;
 export default appSlice.reducer;

@@ -4,12 +4,17 @@ import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "../../utils/constants";
+import { useSelector } from "react-redux";
+import { Rating } from "react-native-ratings";
+import moment from "moment";
 const HomeScreen = () => {
+  const { list } = useSelector((state) => state.app);
   const { top, bottom } = useSafeAreaInsets();
   const navigation = useNavigation();
   const navigateToMapScreen = () => {
     navigation.navigate("Map");
   };
+  console.log("list", list);
   return (
     <View style={styles.container}>
       <View style={[styles.header, { height: 60 + top, paddingTop: top }]}>
@@ -20,7 +25,22 @@ const HomeScreen = () => {
           </Pressable>
         </View>
       </View>
-      <Text>HomeScreen</Text>
+      {list.map((item, index) => (
+        <View key={index}>
+          <Text style={{ color: "white" }}>{item.title}</Text>
+
+          <Rating
+            style={{ paddingVertical: 10 }}
+            tintColor={colors.background}
+            readonly
+            ratingCount={5}
+            startingValue={item.rating}
+          />
+          <Text style={{ color: "white" }}>
+            {moment(item.createdAt).format("DD/MM/YYYY")}
+          </Text>
+        </View>
+      ))}
     </View>
   );
 };
