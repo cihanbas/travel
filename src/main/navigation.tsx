@@ -19,7 +19,11 @@ function MainNavigation() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Map" component={MapScreen} />
-        <Stack.Screen name="Camera" component={CameraScreen} />
+        <Stack.Screen
+          name="Camera"
+          component={CameraScreen}
+          options={{ headerShown: true }}
+        />
         <Stack.Screen
           name="Comment"
           component={CommentScreen}
