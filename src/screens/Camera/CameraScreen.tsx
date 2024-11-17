@@ -4,12 +4,16 @@ import { useCameraPermissions, CameraView, CameraType } from "expo-camera";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { inputValues } from "../Comment/CommentScreen";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { setImageUrl } from "../../store/appSlice";
 const CameraScreen = () => {
   const [permission, requestPermission] = useCameraPermissions();
   const [facing, setFacing] = useState<CameraType>("back");
 
   const navigation = useNavigation();
   const camera = useRef<CameraView>(null);
+  const dispatch = useDispatch();
+
   console.log("permission", permission);
   if (permission?.status !== "granted") {
     requestPermission();
@@ -22,6 +26,7 @@ const CameraScreen = () => {
     try {
       const image = await camera.current?.takePictureAsync();
       inputValues.imageUrl = image?.uri || "";
+      dispatch(setImageUrl(image?.uri || ""));
       navigation.goBack();
     } catch (error) {}
   };

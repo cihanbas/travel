@@ -12,6 +12,7 @@ import { Rating } from "react-native-ratings";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "../../utils/constants";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 export const inputValues = {
   title: "",
   description: "",
@@ -21,6 +22,7 @@ export const inputValues = {
 const CommentScreen = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
+  const { image } = useSelector((state) => state.app);
   const navigateToCamera = () => {
     //
     navigation.navigate("Camera");
@@ -64,9 +66,9 @@ const CommentScreen = () => {
             inputValues.rating = rating;
           }}
         />
-        {inputValues.imageUrl && (
+        {image && (
           <Image
-            source={{ uri: inputValues.imageUrl }}
+            source={{ uri: image }}
             style={{ height: 160, width: 90 }}
           ></Image>
         )}
