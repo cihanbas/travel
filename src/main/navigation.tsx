@@ -8,6 +8,7 @@ import { StatusBar } from "react-native";
 import MapScreen from "../screens/Map/MapScreen";
 import CommentScreen from "../screens/Comment/CommentScreen";
 import { colors } from "../utils/constants";
+import CameraScreen from "../screens/Camera/CameraScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,7 @@ function MainNavigation() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Map" component={MapScreen} />
+        <Stack.Screen name="Camera" component={CameraScreen} />
         <Stack.Screen
           name="Comment"
           component={CommentScreen}

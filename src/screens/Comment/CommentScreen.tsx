@@ -1,10 +1,10 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import React from "react";
-import { colors, coordinates } from "../../utils/constants";
-import { useRoute } from "@react-navigation/native";
-import { Rating, AirbnbRating } from "react-native-ratings";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import React from "react";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Rating } from "react-native-ratings";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { colors } from "../../utils/constants";
+import { useNavigation } from "@react-navigation/native";
 const inputValues = {
   title: "",
   description: "",
@@ -12,7 +12,11 @@ const inputValues = {
 };
 const CommentScreen = () => {
   const insets = useSafeAreaInsets();
-
+  const navigation = useNavigation();
+  const navigateToCamera = () => {
+    //
+    navigation.navigate("Camera");
+  };
   return (
     <View style={[styles.container, { paddingBottom: insets.bottom + 10 }]}>
       <View style={{ flex: 1 }}>
@@ -53,7 +57,7 @@ const CommentScreen = () => {
           }}
         />
 
-        <Pressable style={styles.picture_icon}>
+        <Pressable style={styles.picture_icon} onPress={navigateToCamera}>
           <AntDesign name="picture" size={24} color="white" />
         </Pressable>
       </View>
